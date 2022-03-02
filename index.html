@@ -1,0 +1,133 @@
+<!--Created by Flare @Errorcode_95-->
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel=”icon” type=”image/png” href=”MEDIA/titleIcon.png” />
+        <title>XRVR</title>
+        <style>
+            @font-face {
+            font-family: amiga1;
+            src: url(Topaz_a1200_v1.0.ttf);
+            }
+
+            body {
+                background-color: #050505;
+                text-align: center;
+                color: #00ff00;
+                font-family: amiga1;
+            }
+            .Typewriter{
+            padding: 300px 0;
+            }
+
+            .Typewriter a {
+            text-align: center;
+            padding-top:25em;
+            color: #00ff00;
+            text-decoration: none;
+            font-size: 35px;
+            }
+
+            .navbar {
+                overflow: hidden;
+                position: fixed;
+                bottom: 0;
+                width: 100%;
+            }
+
+            .navLeft a {
+                float: left;
+                display: block;
+                color: #00ff00;
+                text-align: center;
+                padding: 14px 16px; /* hight width */
+                text-decoration: none;
+                font-size: 18px;
+            }
+            .navRight a {
+                float: right;
+                display: block;
+                color: #00ff00;
+                text-align: center;
+                padding: 14px 30px; /* hight width */
+                text-decoration: none;
+                font-size: 18px;
+            }
+        </style>
+        <script>
+            var TxtType = function(el, toRotate, period) {
+            this.toRotate = toRotate;
+            this.el = el;
+            this.loopNum = 0;
+            this.period = parseInt(period, 8) || 2000;
+            this.txt = '';
+            this.tick();
+            this.isDeleting = false;
+        };
+
+        TxtType.prototype.tick = function() {
+            var i = this.loopNum % this.toRotate.length;
+            var fullTxt = this.toRotate[i];
+
+            if (this.isDeleting) {
+            this.txt = fullTxt.substring(0, this.txt.length - 1);
+            } else {
+            this.txt = fullTxt.substring(0, this.txt.length + 1);
+            }
+
+            this.el.innerHTML = '<span class="wrap">'+this.txt+'</span>';
+
+            var that = this;
+            var delta = 200 - Math.random() * 100; // * ___; speed
+
+            if (this.isDeleting) { delta /= 2.5; }
+
+            if (!this.isDeleting && this.txt === fullTxt) {
+            delta = this.period;
+            this.isDeleting = true;
+            } else if (this.isDeleting && this.txt === '') {
+            this.isDeleting = false;
+            this.loopNum++;
+            delta = 500;
+            }
+
+            setTimeout(function() {
+            that.tick();
+            }, delta);
+        };
+
+        window.onload = function() {
+            var elements = document.getElementsByClassName('typewrite');
+            for (var i=0; i<elements.length; i++) {
+                var toRotate = elements[i].getAttribute('data-type');
+                var period = elements[i].getAttribute('data-period');
+                if (toRotate) {
+                new TxtType(elements[i], JSON.parse(toRotate), period);
+                }
+            }
+        };            
+        </script>
+    </head>
+    <body>
+        <div class="Typewriter">
+                <a href="" class="typewrite" data-period="2000" data-type='[
+                    "Dialing up...",
+                    "Connecting...",
+                    "XRVR Online!",
+                    "Welcome to the studio",
+                    "XRVR Shutting down..."]'>
+                </a>
+        </div>
+        <div class="navbar">
+            <div class="navLeft">
+                <a href="https://open.spotify.com/artist/0ny2Uopgt8hxE96S4zGL3G?si=UVDuuWEjREypYF7ACa5FcQ" target="_blank">Spotify</a>
+                <a href="https://xrvr.bandcamp.com/" target="_blank">Bandcamp</a>
+                <a href="https://soundcloud.com/xrvr" target="_blank">Soundcloud</a>
+                <a href="https://www.instagram.com/xrvr.thetrunk/" target="_blank">Instagram</a>
+            </div>
+            <div class="navRight">
+                <a href="mailto:xrvrthetrunk@gmail.com">xrvrthetrunk@gmail.com</a>
+            </div>
+          </div>
+    </body>
+</html>
